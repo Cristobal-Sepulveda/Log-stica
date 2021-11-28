@@ -13,7 +13,7 @@ public class ProductoDAO
 {
      public boolean ingresarProducto(Producto producto)
     {
-        boolean resultado= false;
+        boolean resultado = false;
         try {
             Connection con = Conexion.getConexion();
             String query= "INSERT INTO PRODUCTO (codigo, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?)";
@@ -61,7 +61,7 @@ public class ProductoDAO
             String query = "DELETE FROM PRODUCTO WHERE codigo = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, codigo);
-            resultado=ps.executeUpdate()==1;
+            resultado = ps.executeUpdate()==1;
             ps.close();
             
         } catch (SQLException ex) {
@@ -98,7 +98,7 @@ public class ProductoDAO
         ArrayList <Producto> productos = new ArrayList<Producto>();
         try {
             Connection con = Conexion.getConexion();
-            String query="SELECT * FROM PRODUCTO";
+            String query = "SELECT * FROM PRODUCTO";
             PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             Producto producto;
