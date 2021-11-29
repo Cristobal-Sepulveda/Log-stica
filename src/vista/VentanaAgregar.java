@@ -193,9 +193,7 @@ public class VentanaAgregar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Producto creado");
         }else{
             JOptionPane.showMessageDialog(this, "El id ingresado ya esta asignado a otro producto");
-        }
-            
-
+        }          
     }//GEN-LAST:event_buttonCrearActionPerformed
 
     private void buttonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolverActionPerformed

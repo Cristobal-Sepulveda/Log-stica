@@ -71,12 +71,13 @@ public class ProductoDAO
         }
         return resultado;
     }
+    
     public boolean modificarProducto(Producto producto)
     {
         boolean resultado=false;
         try {
             Connection con = Conexion.getConexion();
-            String query = "UPDATE PRODUCTO SET id = ?, nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ?";
+            String query = "UPDATE PRODUCTO SET nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());

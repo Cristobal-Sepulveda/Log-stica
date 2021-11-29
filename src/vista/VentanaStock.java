@@ -38,6 +38,7 @@ public class VentanaStock extends javax.swing.JFrame {
         buttonVolver = new javax.swing.JButton();
         buttonBuscar = new javax.swing.JButton();
         buttonAgregar = new javax.swing.JButton();
+        buttonVerTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +105,13 @@ public class VentanaStock extends javax.swing.JFrame {
             }
         });
 
+        buttonVerTodos.setText("VER TODOS");
+        buttonVerTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVerTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,12 +126,13 @@ public class VentanaStock extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(buttonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(buttonAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(buttonVerTodos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,6 +152,8 @@ public class VentanaStock extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonAgregar)
+                        .addGap(24, 24, 24)
+                        .addComponent(buttonVerTodos)
                         .addGap(24, 24, 24)
                         .addComponent(buttonBuscar)
                         .addGap(24, 24, 24)
@@ -212,32 +223,18 @@ public class VentanaStock extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonVolverActionPerformed
 
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
-        limpiarTabla();
         ProductoDAO productoDAO = new ProductoDAO();
         String productoABuscar = JOptionPane.showInputDialog("Ingrese codigo del producto a buscar");
         Producto producto = productoDAO.buscarProducto(productoABuscar);
 
         if(producto == null)//No existe
         {
-            ArrayList <Producto> productoList = productoDAO.obtenerTodo();
-            if(productoList.size() == 0){
-                JOptionPane.showMessageDialog(this, "No hay Productos en bodega");
-            }else{
-                DefaultTableModel dtm = (DefaultTableModel)tblMostrar.getModel();
-                String [][] datos = new String[productoList.size()][5];
-                for (int i = 0; i < productoList.size(); i++) {
-                    datos[i][0] = productoList.get(i).getId();
-                    datos[i][1] = productoList.get(i).getNombre();
-                    datos[i][2] = productoList.get(i).getTipoProducto();
-                    datos[i][3] = productoList.get(i).getSubTipoProducto();
-                    datos[i][4] = String.valueOf(productoList.get(i).getPrecio());                
-                    dtm.addRow(datos[i]);
-                }
-                tblMostrar.setModel(dtm);
-            }
+            JOptionPane.showMessageDialog(this, "El codigo ingresado no esta asignado a ningun producto");
+            
         }
         else //Existe
         {
+            limpiarTabla();
             DefaultTableModel dtm = (DefaultTableModel)tblMostrar.getModel();
             String [] datos = new String[5];
             datos[0] = producto.getId();
@@ -258,13 +255,35 @@ public class VentanaStock extends javax.swing.JFrame {
         ven.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); 
     }//GEN-LAST:event_buttonAgregarActionPerformed
 
-
+    private void buttonVerTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVerTodosActionPerformed
+        limpiarTabla();
+        ProductoDAO productoDAO = new ProductoDAO();
+        ArrayList <Producto> productoList = productoDAO.obtenerTodo();
+        if(productoList.size() == 0){
+            JOptionPane.showMessageDialog(this, "No hay Productos en bodega");
+        }
+        else
+        {
+            DefaultTableModel dtm = (DefaultTableModel)tblMostrar.getModel();
+            String [][] datos = new String[productoList.size()][5];
+            for (int i = 0; i < productoList.size(); i++) {
+                datos[i][0] = productoList.get(i).getId();
+                datos[i][1] = productoList.get(i).getNombre();
+                datos[i][2] = productoList.get(i).getTipoProducto();
+                datos[i][3] = productoList.get(i).getSubTipoProducto();
+                datos[i][4] = String.valueOf(productoList.get(i).getPrecio());                
+                dtm.addRow(datos[i]);
+            }
+            tblMostrar.setModel(dtm);
+        }
+    }//GEN-LAST:event_buttonVerTodosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAgregar;
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JButton buttonEliminar;
     private javax.swing.JButton buttonModificar;
+    private javax.swing.JButton buttonVerTodos;
     private javax.swing.JButton buttonVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
