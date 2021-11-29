@@ -16,13 +16,14 @@ public class ProductoDAO
         boolean resultado = false;
         try {
             Connection con = Conexion.getConexion();
-            String query= "INSERT INTO PRODUCTO (id, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?)";
+            String query= "INSERT INTO PRODUCTO (id, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());
             ps.setString(3, producto.getTipoProducto());
             ps.setString(4, producto.getSubTipoProducto());
             ps.setInt(5, producto.getPrecio());
+            ps.setInt(6, producto.getPrecio());
             resultado = ps.executeUpdate() == 1;
             ps.close();
         } catch (SQLException ex) {
@@ -43,7 +44,7 @@ public class ProductoDAO
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6));
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProductoDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,13 +78,14 @@ public class ProductoDAO
         boolean resultado=false;
         try {
             Connection con = Conexion.getConexion();
-            String query = "UPDATE PRODUCTO SET nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ? WHERE id = ?";
+            String query = "UPDATE PRODUCTO SET nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ?, cantidad = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());
             ps.setString(3, producto.getTipoProducto());
             ps.setString(4, producto.getSubTipoProducto());
             ps.setInt(5, producto.getPrecio());
+            ps.setInt(6, producto.getCantidad());
             resultado = ps.executeUpdate() == 1;
             ps.close();
         } catch (SQLException ex) {
@@ -105,7 +107,7 @@ public class ProductoDAO
             Producto producto;
             while(rs.next())
             {
-                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+                producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6));
                 productos.add(producto);
             }
             ps.close();

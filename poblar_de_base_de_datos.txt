@@ -33,18 +33,19 @@ CREATE TABLE `producto` (
   `nombre` varchar(50) NOT NULL,
   `tipoProducto` varchar(20) NOT NULL,
   `subTipoProducto` varchar(20) NOT NULL,
-  `precio` int NOT NULL
+  `precio` int NOT NULL,
+  `cantidad` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id`, `nombre`, `tipoProducto`, `subTipoProducto`, `precio`) VALUES
-('000001', 'Kutsmann Torobayo Individual', 'Alcohol', 'Cerveza', 1500),
-('000002', 'Kutsmann Honey Individual', 'Alcohol', 'Cerveza', 1500),
-('000003', 'Hamburgesa Doble Queso', 'Sandwich', 'Hamburguesa', 3000),
-('000004', 'Coca Cola 1.5 Litros', 'Bebidas', 'Coca Cola', 1500);
+INSERT INTO `producto` (`id`, `nombre`, `tipoProducto`, `subTipoProducto`, `precio`, `cantidad`) VALUES
+('000001', 'Kutsmann Torobayo Individual', 'Alcohol', 'Cerveza', 1500, 10),
+('000002', 'Kutsmann Honey Individual', 'Alcohol', 'Cerveza', 1500, 15),
+('000003', 'Hamburgesa Doble Queso', 'Sandwich', 'Hamburguesa', 3000, 40),
+('000004', 'Coca Cola 1.5 Litros', 'Bebidas', 'Coca Cola', 1500, 3);
 
 --
 -- Índices para tablas volcadas

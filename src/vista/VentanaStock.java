@@ -47,14 +47,14 @@ public class VentanaStock extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Tipo Producto", "Sub TIpo Producto", "Precio"
+                "ID", "Nombre", "Tipo Producto", "Sub TIpo Producto", "Precio", "cantidad"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -205,16 +205,24 @@ public class VentanaStock extends javax.swing.JFrame {
         if(fila == -1){
         JOptionPane.showMessageDialog(this, "Debe seleccionar un producto");
         }else{
-            String id = String.valueOf(tblMostrar.getValueAt(fila, 0));
-            String nombre = String.valueOf(tblMostrar.getValueAt(fila, 1));
-            String tipoProducto = String.valueOf(tblMostrar.getValueAt(fila, 3));
-            String subTipoProducto = String.valueOf(tblMostrar.getValueAt(fila, 3));
-            int precio = Integer.parseInt(valueOf(tblMostrar.getValueAt(fila, 4)));
-            
-            Producto producto = new Producto(id, nombre, tipoProducto, subTipoProducto, precio);
-            ProductoDAO productoDAO=new ProductoDAO();
-            productoDAO.modificarProducto(producto);
-            JOptionPane.showMessageDialog(this, "Producto modificado");
+            String contraseña = JOptionPane.showInputDialog("Ingrese Contraseña");
+            System.out.println("clave: "+contraseña);
+            if("contraseña".equals(contraseña)){
+                String id = String.valueOf(tblMostrar.getValueAt(fila, 0));
+                String nombre = String.valueOf(tblMostrar.getValueAt(fila, 1));
+                String tipoProducto = String.valueOf(tblMostrar.getValueAt(fila, 2));
+                String subTipoProducto = String.valueOf(tblMostrar.getValueAt(fila, 3));
+                int precio = Integer.parseInt(valueOf(tblMostrar.getValueAt(fila, 4)));
+                int cantidad = Integer.parseInt(valueOf(tblMostrar.getValueAt(fila, 5)));
+                Producto producto = new Producto(id, nombre, tipoProducto, subTipoProducto, precio, cantidad);
+                ProductoDAO productoDAO=new ProductoDAO();
+                productoDAO.modificarProducto(producto);
+                JOptionPane.showMessageDialog(this, "Producto modificado");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Contraseña incorrecta");
+            }
         }
     }//GEN-LAST:event_buttonModificarActionPerformed
 
@@ -242,6 +250,7 @@ public class VentanaStock extends javax.swing.JFrame {
             datos[2] = producto.getTipoProducto();
             datos[3] = producto.getSubTipoProducto();
             datos[4] = String.valueOf(producto.getPrecio());
+            datos[5] = String.valueOf(producto.getCantidad());
             dtm.addRow(datos);
             tblMostrar.setModel(dtm);
         }
@@ -251,7 +260,7 @@ public class VentanaStock extends javax.swing.JFrame {
         VentanaAgregar ven= new VentanaAgregar();
         ven.setVisible(true);
         ven.setLocationRelativeTo(null);
-        ven.setTitle("Stock");
+        ven.setTitle("Agregar Producto");
         ven.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); 
     }//GEN-LAST:event_buttonAgregarActionPerformed
 
@@ -265,13 +274,14 @@ public class VentanaStock extends javax.swing.JFrame {
         else
         {
             DefaultTableModel dtm = (DefaultTableModel)tblMostrar.getModel();
-            String [][] datos = new String[productoList.size()][5];
+            String [][] datos = new String[productoList.size()][6];
             for (int i = 0; i < productoList.size(); i++) {
                 datos[i][0] = productoList.get(i).getId();
                 datos[i][1] = productoList.get(i).getNombre();
                 datos[i][2] = productoList.get(i).getTipoProducto();
                 datos[i][3] = productoList.get(i).getSubTipoProducto();
-                datos[i][4] = String.valueOf(productoList.get(i).getPrecio());                
+                datos[i][4] = String.valueOf(productoList.get(i).getPrecio());
+                datos[i][5] = String.valueOf(productoList.get(i).getCantidad()); 
                 dtm.addRow(datos[i]);
             }
             tblMostrar.setModel(dtm);

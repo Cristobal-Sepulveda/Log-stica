@@ -6,13 +6,16 @@ public class Producto {
     private String tipoProducto;
     private String subTipoProducto;
     private int precio;
+    private int cantidad;
+    
 
-    public Producto(String id, String nombre, String tipoProducto, String subTipoProducto, int precio) {
+    public Producto(String id, String nombre, String tipoProducto, String subTipoProducto, int precio, int cantidad) {
         this.id = id;
         this.nombre = nombre;
         this.tipoProducto = tipoProducto;
         this.subTipoProducto = subTipoProducto;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     public String getId() {
@@ -30,6 +33,9 @@ public class Producto {
     public int getPrecio() {
         return precio;
     }
+    public int getCantidad(){
+        return cantidad;
+    }
 
     
     public void setId(String id) {
@@ -46,6 +52,9 @@ public class Producto {
     }
     public void setPrecio(int precio) {
         this.precio = precio;
+    }
+    public void setCantidad(int cantidad){
+        this.cantidad = cantidad;
     }
         
 }
