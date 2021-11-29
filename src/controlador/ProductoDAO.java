@@ -16,9 +16,9 @@ public class ProductoDAO
         boolean resultado = false;
         try {
             Connection con = Conexion.getConexion();
-            String query= "INSERT INTO PRODUCTO (codigo, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?)";
+            String query= "INSERT INTO PRODUCTO (id, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, producto.getCodigo());
+            ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());
             ps.setString(3, producto.getTipoProducto());
             ps.setString(4, producto.getSubTipoProducto());
@@ -33,14 +33,14 @@ public class ProductoDAO
         return resultado;
     }
      
-    public Producto buscarProducto(String codigo)
+    public Producto buscarProducto(String id)
     {
         Producto producto=null;
         try {
             Connection con = Conexion.getConexion();
-            String query = "SELECT * FROM PRODUCTO WHERE codigo = ?";
+            String query = "SELECT * FROM PRODUCTO WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, codigo);
+            ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
                 producto = new Producto(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
@@ -53,14 +53,14 @@ public class ProductoDAO
         return producto;
     }
     
-    public boolean eliminarProducto(String codigo)
+    public boolean eliminarProducto(String id)
     {
         boolean resultado = false;
         try {
             Connection con = Conexion.getConexion();
-            String query = "DELETE FROM PRODUCTO WHERE codigo = ?";
+            String query = "DELETE FROM PRODUCTO WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, codigo);
+            ps.setString(1, id);
             resultado = ps.executeUpdate()==1;
             ps.close();
             
@@ -76,9 +76,9 @@ public class ProductoDAO
         boolean resultado=false;
         try {
             Connection con = Conexion.getConexion();
-            String query = "UPDATE PRODUCTO SET codigo = ?, nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ?";
+            String query = "UPDATE PRODUCTO SET id = ?, nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, producto.getCodigo());
+            ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());
             ps.setString(3, producto.getTipoProducto());
             ps.setString(4, producto.getSubTipoProducto());

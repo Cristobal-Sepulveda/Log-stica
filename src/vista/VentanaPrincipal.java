@@ -41,7 +41,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         buttonVerStock = new javax.swing.JButton();
         buttonSalir = new javax.swing.JButton();
         textViewTextoVentanaPrincipal = new java.awt.Label();
-        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -75,6 +75,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         buttonVerStock.setText("VER STOCK");
+        buttonVerStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVerStockActionPerformed(evt);
+            }
+        });
 
         buttonSalir.setText("SALIR");
         buttonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -87,12 +92,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         textViewTextoVentanaPrincipal.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         textViewTextoVentanaPrincipal.setText("BIENVENIDO AL SISTEMA DE ADMINISTRACION DEL LOCAL ");
 
-        jButton2.setText("MODIFICAR STOCK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoDuoc.jpg"))); // NOI18N
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -110,51 +110,63 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGap(133, 133, 133)
                 .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(187, 187, 187))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(24, 24, 24)
+                .addComponent(textViewTextoVentanaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
                         .addComponent(buttonVerStock, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
+                        .addGap(50, 50, 50)
                         .addComponent(buttonVender, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(buttonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textViewTextoVentanaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                        .addGap(50, 50, 50)
+                        .addComponent(buttonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textViewTextoVentanaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonVerStock)
                     .addComponent(buttonVender)
-                    .addComponent(buttonSalir)
-                    .addComponent(jButton2)
-                    .addComponent(buttonVerStock))
-                .addGap(24, 24, 24))
+                    .addComponent(buttonSalir))
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void buttonVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVenderActionPerformed
-        // TODO add your handling code here:
+        VentanaVender ven= new VentanaVender();
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(null);
+        ven.setTitle("Hacer Pedido");
+        ven.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     }//GEN-LAST:event_buttonVenderActionPerformed
 
     private void buttonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalirActionPerformed
         dispose();
     }//GEN-LAST:event_buttonSalirActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void buttonVerStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVerStockActionPerformed
+        VentanaStock ven= new VentanaStock();
+        ven.setVisible(true);
+        ven.setLocationRelativeTo(null);
+        ven.setTitle("Stock");
+        ven.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_buttonVerStockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,8 +181,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton buttonVender;
     private javax.swing.JButton buttonVerStock;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

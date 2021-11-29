@@ -1,22 +1,22 @@
 package modelo;
 
 public class Producto {
-    private String codigo;
+    private String id;
     private String nombre;
     private String tipoProducto;
     private String subTipoProducto;
     private int precio;
 
-    public Producto(String codigo, String nombre, String tipoProducto, String subTipoProducto, int precio) {
-        this.codigo = codigo;
+    public Producto(String id, String nombre, String tipoProducto, String subTipoProducto, int precio) {
+        this.id = id;
         this.nombre = nombre;
         this.tipoProducto = tipoProducto;
         this.subTipoProducto = subTipoProducto;
         this.precio = precio;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getId() {
+        return id;
     }
     public String getNombre() {
         return nombre;
@@ -32,8 +32,8 @@ public class Producto {
     }
 
     
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(String id) {
+        this.id = id;
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
