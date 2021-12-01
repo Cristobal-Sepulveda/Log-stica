@@ -80,12 +80,12 @@ public class ProductoDAO
             Connection con = Conexion.getConexion();
             String query = "UPDATE PRODUCTO SET nombre = ?,tipoProducto = ?, subTipoProducto = ?, precio = ?, cantidad = ? WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, producto.getId());
-            ps.setString(2, producto.getNombre());
-            ps.setString(3, producto.getTipoProducto());
-            ps.setString(4, producto.getSubTipoProducto());
-            ps.setInt(5, producto.getPrecio());
-            ps.setInt(6, producto.getCantidad());
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getTipoProducto());
+            ps.setString(3, producto.getSubTipoProducto());
+            ps.setInt(4, producto.getPrecio());
+            ps.setInt(5, producto.getCantidad());
+            ps.setString(6, producto.getId());
             resultado = ps.executeUpdate() == 1;
             ps.close();
         } catch (SQLException ex) {
