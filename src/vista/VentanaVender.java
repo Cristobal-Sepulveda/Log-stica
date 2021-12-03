@@ -241,6 +241,7 @@ public class VentanaVender extends javax.swing.JFrame {
         String[]ids = new String[aux];
         int productosVendidos = 0;
         int totalVenta = 0;
+        Producto [] productosARestaurar = new Producto[aux];
         
         for(int i = 0; i < aux ; i++){
             String cantidad = dtm.getValueAt(i, 5).toString();
@@ -262,21 +263,40 @@ public class VentanaVender extends javax.swing.JFrame {
                 return;
             }
         }
+        
+        
+        int codigo = Integer.valueOf(JOptionPane.showInputDialog("¿El cliente tiene"
+            + " codigo de descuento? Si no tiene, no ingrese nada o aprete cancelar"));
+        
+        for(int i = 0; i< aux; i++){
+            Producto productoAux = productoDAO.buscarProducto(ids[i]);
+            int aplicaDescuento = productoAux.descuentoCodigo(codigo, productoAux);
+            if (aplicaDescuento == 1){
+                productosARestaurar[i] = productoAux;
+            }            
+        }
+        
+        
         for(int i = 0; i < aux; i++){
             Producto productoAModificar = productoDAO.buscarProducto(ids[i]);
-            
-            productoAModificar.setCantidad(cantidades[i][0]);
-            productosVendidos = productosVendidos + (cantidades[i][0]);
-            totalVenta = totalVenta + (productoAModificar.getPrecio()*(cantidades[i][0]));
-            productoDAO.modificarProducto(productoAModificar);
-        }
+            if(codigo != 123456){
+                productoAModificar.setCantidad(cantidades[i][1] - cantidades[i][0]);
+                productosVendidos = productosVendidos + (cantidades[i][0]);
+                totalVenta = totalVenta + (productoAModificar.getPrecio()*(cantidades[i][0]));
+                productoDAO.modificarProducto(productoAModificar);
+            }else{
+                productoAModificar.setCantidad(cantidades[i][1] - cantidades[i][0]);
+                productosVendidos = productosVendidos + (cantidades[i][0]);
+                totalVenta = totalVenta + (productosARestaurar[i].getPrecio()*(cantidades[i][0]));
+                productoDAO.modificarProducto(productoAModificar);
+                productosARestaurar[i].restauraPrecio(productosARestaurar[i]);
+            }
+        }           
+        
         JOptionPane.showMessageDialog(this, "La cantidad de productos vendidos fue de: "+productosVendidos);
         JOptionPane.showMessageDialog(this, "El precio total de la venta es de: "+totalVenta);
         
-        limpiarTabla();
-        
-        
-     
+        limpiarTabla();      
     }//GEN-LAST:event_buttonCrearPedidoActionPerformed
 
     /**

@@ -56,5 +56,19 @@ public class Producto {
     public void setCantidad(int cantidad){
         this.cantidad = cantidad;
     }
-        
+    
+    
+    public int descuentoCodigo(int codigo, Producto producto){
+        if(codigo == 123456){
+            int aux = (int)(producto.getPrecio()*0.75);
+            producto.setPrecio(aux);
+            return 1;
+        }
+        return 0;
+    }
+    
+    public void restauraPrecio(Producto producto){
+        int aux = (int)((producto.getPrecio()/75)*100);
+        producto.setPrecio(aux);          
+    }
 }
