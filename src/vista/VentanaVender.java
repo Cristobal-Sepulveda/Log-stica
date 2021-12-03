@@ -7,6 +7,7 @@ package vista;
 
 import controlador.ProductoDAO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Producto;
@@ -232,27 +233,50 @@ public class VentanaVender extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimpiarActionPerformed
 
     private void buttonCrearPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCrearPedidoActionPerformed
-        ProductoDAO productoDAO = new ProductoDAO();
-        
+        ProductoDAO productoDAO = new ProductoDAO();     
         JOptionPane.showInputDialog("Ingrese RUT del Vendedor");
         DefaultTableModel dtm = (DefaultTableModel)tblMostrar.getModel();
         int aux = dtm.getRowCount();
+        int [][]cantidades = new int[aux][2];
+        String[]ids = new String[aux];
+        int productosVendidos = 0;
+        int totalVenta = 0;
+        
         for(int i = 0; i < aux ; i++){
             String cantidad = dtm.getValueAt(i, 5).toString();
-            System.out.println("cantidad: "+cantidad);
-            int cantidadAux = Integer.parseInt(cantidad);
+            int cantidadVendida = Integer.valueOf(cantidad);
             Producto producto = productoDAO.buscarProducto(dtm.getValueAt(i, 0).toString());
-            System.out.println("cantidad: "+producto.getCantidad());
-            if((producto.getCantidad() - cantidadAux) > 0){
-                producto.setCantidad(producto.getCantidad() - cantidadAux);
-                productoDAO.modificarProducto(producto);
-            }else{
-                JOptionPane.showMessageDialog(this, "La cantidad ingresada del producto: "+
-                        productoDAO.buscarProducto(dtm.getValueAt(i, 0).toString()).getNombre()+
-                        " es mayor al stock disponible");
+            int cantidadStock = Integer.valueOf(producto.getCantidad());
+            cantidades[i][0] = cantidadVendida;
+            cantidades[i][1] = cantidadStock;
+            ids[i] = producto.getId();
+            
+        }
+        for(int i = 0; i < aux; i++){
+            if(cantidades[i][0] > cantidades [i][1]){
+                Producto productoSinTantoStock = productoDAO.buscarProducto(ids[i]);
+                JOptionPane.showMessageDialog(this, "El stock maximo de "
+                        +productoSinTantoStock.getNombre()+" es "
+                        +productoSinTantoStock.getCantidad());
+                limpiarTabla();     
+                return;
             }
         }
+        for(int i = 0; i < aux; i++){
+            Producto productoAModificar = productoDAO.buscarProducto(ids[i]);
+            
+            productoAModificar.setCantidad(cantidades[i][0]);
+            productosVendidos = productosVendidos + (cantidades[i][0]);
+            totalVenta = totalVenta + (productoAModificar.getPrecio()*(cantidades[i][0]));
+            productoDAO.modificarProducto(productoAModificar);
+        }
+        JOptionPane.showMessageDialog(this, "La cantidad de productos vendidos fue de: "+productosVendidos);
+        JOptionPane.showMessageDialog(this, "El precio total de la venta es de: "+totalVenta);
+        
         limpiarTabla();
+        
+        
+     
     }//GEN-LAST:event_buttonCrearPedidoActionPerformed
 
     /**

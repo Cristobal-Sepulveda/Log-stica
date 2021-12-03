@@ -183,6 +183,10 @@
           <Font name="Verdana" size="14" style="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editTextPrecioActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="editTextPrecioKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="editTextNombreProducto">
       <Properties>
@@ -260,6 +264,9 @@
           <Font name="Verdana" size="14" style="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="editTextCantidadKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

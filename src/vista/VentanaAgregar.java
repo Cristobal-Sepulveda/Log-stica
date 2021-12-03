@@ -6,8 +6,10 @@
 package vista;
 
 import controlador.ProductoDAO;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import modelo.Producto;
+import controlador.*;
 
 /**
  *
@@ -69,6 +71,16 @@ public class VentanaAgregar extends javax.swing.JFrame {
         jLabel3.setText("Tipo Producto");
 
         editTextPrecio.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        editTextPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editTextPrecioActionPerformed(evt);
+            }
+        });
+        editTextPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                editTextPrecioKeyTyped(evt);
+            }
+        });
 
         editTextNombreProducto.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
 
@@ -107,6 +119,11 @@ public class VentanaAgregar extends javax.swing.JFrame {
         jLabel8.setText("Cantidad");
 
         editTextCantidad.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        editTextCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                editTextCantidadKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,8 +235,15 @@ public class VentanaAgregar extends javax.swing.JFrame {
             nuevoProducto = new Producto(id, nombre, tipoProducto, subTipoProducto, precio, cantidad);
             productoDAO.ingresarProducto(nuevoProducto);
             JOptionPane.showMessageDialog(this, "Producto creado");
+            editTextIDProducto.setText("");
+            editTextNombreProducto.setText("");
+            editTextTipoProducto.setText("");
+            editTextSubTipoProducto.setText("");
+            editTextPrecio.setText("");
+            editTextCantidad.setText("");
         }else{
             JOptionPane.showMessageDialog(this, "El id ingresado ya esta asignado a otro producto");
+            editTextIDProducto.setText("");
         }          
     }//GEN-LAST:event_buttonCrearActionPerformed
 
@@ -234,6 +258,24 @@ public class VentanaAgregar extends javax.swing.JFrame {
     private void editTextTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTextTipoProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editTextTipoProductoActionPerformed
+
+    private void editTextPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editTextPrecioActionPerformed
+        
+    }//GEN-LAST:event_editTextPrecioActionPerformed
+
+    private void editTextPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editTextPrecioKeyTyped
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_editTextPrecioKeyTyped
+
+    private void editTextCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editTextCantidadKeyTyped
+        char c = evt.getKeyChar();
+        if(!Character.isDigit(c)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_editTextCantidadKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

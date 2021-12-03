@@ -16,14 +16,14 @@ public class ProductoDAO
         boolean resultado = false;
         try {
             Connection con = Conexion.getConexion();
-            String query= "INSERT INTO PRODUCTO (id, nombre, tipoProducto, subTipoProducto, Precio) VALUES (?,?,?,?,?,?)";
+            String query= "INSERT INTO PRODUCTO (id, nombre, tipoProducto, subTipoProducto, precio, cantidad) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, producto.getId());
             ps.setString(2, producto.getNombre());
             ps.setString(3, producto.getTipoProducto());
             ps.setString(4, producto.getSubTipoProducto());
             ps.setInt(5, producto.getPrecio());
-            ps.setInt(6, producto.getPrecio());
+            ps.setInt(6, producto.getCantidad());
             resultado = ps.executeUpdate() == 1;
             ps.close();
         } catch (SQLException ex) {
